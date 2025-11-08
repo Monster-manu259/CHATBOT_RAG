@@ -1,0 +1,12 @@
+# Ignore everything
+*
+
+# Except requirements files
+!requirements.txt
+!requirements-dev.txt
+
+# Except documents_processing.py
+!documents_processing.py
+
+# Except .gitignore itself
+!.gitignore

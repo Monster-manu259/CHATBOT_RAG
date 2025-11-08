@@ -1,0 +1,11 @@
+langchain
+google-generativeai
+fastapi
+uvicorn
+python-dotenv
+pydantic
+faiss-cpu
+PyPDF2
+sentence-transformers
+numpy
+PyMuPDF

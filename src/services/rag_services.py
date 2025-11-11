@@ -1,6 +1,7 @@
 from src.schemas.responses import QueryNotFoundResponse, QuerySuccessResponse
 from src.utils.document_processing import DocumentProcessor
 from src.services.llm_service import LLMService
+import re
 
 llm_service = LLMService()
 
@@ -52,7 +53,6 @@ def get_rag_response(query: str, top_k: int = 5, min_score: float = 0.8):
 		final_answer = llm_service.generate_answer(context=context, question=query)
 
 		# Extract URL from answer if present and remove from answer
-		import re
 		url_pattern = r"https?://[\w\.-]+(?:/[\w\./\-\?=&%]*)?"
 		found_urls = re.findall(url_pattern, final_answer)
 		answer_without_urls = re.sub(url_pattern, '', final_answer).strip()

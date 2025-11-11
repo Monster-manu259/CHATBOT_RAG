@@ -51,29 +51,37 @@ def get_rag_response(query: str, top_k: int = 5, min_score: float = 0.8):
 		# 4. Generate the final answer using the LLM
 		final_answer = llm_service.generate_answer(context=context, question=query)
 
-		# Create response object
+		# Extract URL from answer if present and remove from answer
+		import re
+		url_pattern = r"https?://[\w\.-]+(?:/[\w\./\-\?=&%]*)?"
+		found_urls = re.findall(url_pattern, final_answer)
+		answer_without_urls = re.sub(url_pattern, '', final_answer).strip()
+
 		response = QuerySuccessResponse(
 			statusCode=200,
 			success=True,
 			message="Answer retrieved successfully",
 			query=query,
-			answer=final_answer,
+			answer=answer_without_urls,
 		)
 
-		# If the answer is the fallback message, don't include a source URL.
 		if final_answer.strip() == FALLBACK_MESSAGE.strip():
 			response.source_url = None
 			return response
 
-		# Handle source URL with improved validation
-		is_valid_url = (
-			highest_url and 
-			highest_url != "NA" and 
-			isinstance(highest_url, str) and 
-			(str(highest_url).startswith("http://") or str(highest_url).startswith("https://"))
-		)
-		if is_valid_url:
-			response.source_url = highest_url
+		if found_urls:
+			response.source_url = found_urls[0]
+		else:
+			is_valid_url = (
+				highest_url and 
+				highest_url != "NA" and 
+				isinstance(highest_url, str) and 
+				(str(highest_url).startswith("http://") or str(highest_url).startswith("https://"))
+			)
+			if is_valid_url:
+				response.source_url = highest_url
+			else:
+				response.source_url = None
 		return response
 
 	except Exception as e:

@@ -1,12 +1,42 @@
-# Ignore everything
-*
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Except requirements files
-!requirements.txt
-!requirements-dev.txt
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
 
-# Except documents_processing.py
-!documents_processing.py
+# dotenv
+.env
+.env.*
 
-# Except .gitignore itself
-!.gitignore
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+test-results.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+
+# Others
+*.sqlite3
+*.db
+*.log

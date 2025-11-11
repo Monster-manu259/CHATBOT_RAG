@@ -1,7 +1,7 @@
-langchain
 google-generativeai
 fastapi
 uvicorn
+weaviate-client
 python-dotenv
 pydantic
 faiss-cpu
@@ -9,3 +9,4 @@ PyPDF2
 sentence-transformers
 numpy
 PyMuPDF
+langchain-community

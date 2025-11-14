@@ -25,7 +25,7 @@ elif option == "Q/A":
     if st.button("Send"):
         if user_input:
             # Replace with your actual backend chat endpoint
-            response = requests.post("http://localhost:8000/chat", json={"query": user_input})
+            response = requests.post("http://localhost:8000/query", json={"query": user_input})
             if response.status_code == 200:
                 st.write("Bot:", response.json().get("answer", "No answer returned."))
             else:
